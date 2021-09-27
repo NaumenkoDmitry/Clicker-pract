@@ -7,29 +7,27 @@ class App extends Component {
     super(props);
     this.state = {
       values: 1,
+      change: true,
     };
   }
-
-  onClicksPlus = () => {
-    const { values } = this.state;
+  onClicks = () => {
+    const { values, change } = this.state;
     this.setState({
-      values: values + 1,
+      values: change ? values + 1 : values - 1,
     });
   };
-  onClicksMinus = () => {
-    const { values } = this.state;
+  onChange = () => {
+    const { change } = this.state;
     this.setState({
-      values: values - 1,
+      change: !change,
     });
   };
   render() {
-    const { values } = this.state;
+    const { values, change } = this.state;
     return (
       <div>
-        <input value={values}></input>
-
-        <button onClick={this.onClicksPlus}>+1</button>
-        <button onClick={this.onClicksMinus}>-1</button>
+        <button onClick={(e) => this.onClicks(e)}>{change ? "+" : "-"}</button>
+        <button onClick={(e) => this.onChange(e)}>Сменить режим</button>
         <Counter step={values} />
       </div>
     );
